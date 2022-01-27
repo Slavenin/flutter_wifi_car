@@ -28,6 +28,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   flutter_mjpeg: ^2.0.1
+  states_rebuilder: ^5.2.0
   flutter:
     sdk: flutter
 

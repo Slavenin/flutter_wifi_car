@@ -1,62 +1,40 @@
-import 'dart:io';
-
+import 'package:f_wf_car/socket_handler.dart';
+import 'package:f_wf_car/state/app_state.dart';
 import 'package:f_wf_car/widget/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mjpeg/flutter_mjpeg.dart';
+import 'package:states_rebuilder/states_rebuilder.dart';
 
-late final Socket socket;
+SocketHandler handler = SocketHandler();
+
+void onTapCancel() => handler.sendData(appState.state.stop);
 
 void main() {
-  Socket.connect("192.168.1.1", 2001).then((Socket sock) {
-    socket = sock;
-    socket.listen(
-      dataHandler,
-      onError: errorHandler,
-      onDone: doneHandler,
-      cancelOnError: false,
-    );
-  });
-  //Connect standard in to the socket
-  stdin.listen(
-    (data) => socket.write(String.fromCharCodes(data).trim() + '\n'),
-  );
+  WidgetsFlutterBinding.ensureInitialized();
 
+  handler.tryConnect();
   runApp(MyApp());
 }
-
-void dataHandler(data) {
-  print(new String.fromCharCodes(data).trim());
-}
-
-void errorHandler(error, StackTrace trace) {
-  print(error);
-}
-
-void doneHandler() {
-  socket.destroy();
-}
-
-void onTapCancel() => socket.write("st\n");
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Remote car control',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends HookWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    final isRunning = useState(true);
-
     return Scaffold(
       body: Row(
         children: <Widget>[
@@ -72,13 +50,18 @@ class MyHomePage extends HookWidget {
                       padding: const EdgeInsets.only(bottom: 50),
                       child: ElevatedButton(
                         onPressed: () {
-                          isRunning.value = !isRunning.value;
+                          appState.setState((s) {
+                            s.isRunning = !s.isRunning;
+                          });
                         },
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: (isRunning.value
-                              ? const Icon(Icons.visibility)
-                              : const Icon(Icons.visibility_off)),
+                        child: OnReactive(
+                          // Will listen to counter1
+                          () => Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: (appState.state.isRunning
+                                ? const Icon(Icons.visibility)
+                                : const Icon(Icons.visibility_off)),
+                          ),
                         ),
                       ),
                     ),
@@ -88,7 +71,7 @@ class MyHomePage extends HookWidget {
                   children: [
                     MoveButton(
                       onTapCancel: onTapCancel,
-                      onUpdate: () => socket.write("fw\n"),
+                      onUpdate: () => handler.sendData(appState.state.forward),
                       buttonData:
                           const Icon(Icons.arrow_upward, color: Colors.white),
                     )
@@ -98,13 +81,13 @@ class MyHomePage extends HookWidget {
                   children: [
                     MoveButton(
                       onTapCancel: onTapCancel,
-                      onUpdate: () => socket.write("lf\n"),
+                      onUpdate: () => handler.sendData(appState.state.toLeft),
                       buttonData:
                           const Icon(Icons.arrow_back, color: Colors.white),
                     ),
                     MoveButton(
                       onTapCancel: onTapCancel,
-                      onUpdate: () => socket.write("rg\n"),
+                      onUpdate: () => handler.sendData(appState.state.toRight),
                       buttonData:
                           const Icon(Icons.arrow_forward, color: Colors.white),
                     ),
@@ -114,7 +97,7 @@ class MyHomePage extends HookWidget {
                   children: [
                     MoveButton(
                       onTapCancel: onTapCancel,
-                      onUpdate: () => socket.write("bw\n"),
+                      onUpdate: () => handler.sendData(appState.state.backward),
                       buttonData:
                           const Icon(Icons.arrow_downward, color: Colors.white),
                     ),
@@ -129,18 +112,21 @@ class MyHomePage extends HookWidget {
                 padding: const EdgeInsets.only(bottom: 15, top: 15),
                 child: Mjpeg(
                   fit: BoxFit.fill,
-                  isLive: isRunning.value,
+                  isLive: appState.state.isRunning,
                   height: MediaQuery.of(context).size.height,
-                  // width: MediaQuery.of(context).size.width,
                   error: (context, error, stack) {
-                    print(error);
-                    print(stack);
+                    appState.setState((s) {
+                      s.streamHasError = true;
+                      s.streamError = error;
+                      s.isRunning = false;
+                    });
+
                     return Text(
                       error.toString(),
                       style: const TextStyle(color: Colors.red),
                     );
                   },
-                  stream: 'http://192.168.1.1:8080/?action=stream',
+                  stream: appState.state.streamUrl,
                 ),
               ),
             ),
