@@ -4,10 +4,10 @@ import 'package:f_wf_car/state/app_state.dart';
 
 class SocketHandler {
   void tryConnect() {
-    Socket.connect("192.168.1.1", 2001).then((Socket sock) {
+    Socket.connect(appState.state.socketIp, appState.state.socketPort)
+        .then((Socket sock) {
       sock.listen(
         dataHandler,
-        onError: errorHandler,
         onDone: doneHandler,
         cancelOnError: false,
       );
@@ -16,7 +16,13 @@ class SocketHandler {
         s.socket = sock;
         s.socketConnected = true;
       });
-    }).catchError((e) {});
+    }).catchError((e) {
+      appState.setState((s) {
+        s.socketConnected = false;
+        s.socketHasError = true;
+        s.socketError = e;
+      });
+    });
   }
 
   void dataHandler(data) {
@@ -25,14 +31,6 @@ class SocketHandler {
         s.ingoingMessages.insert(0, data);
       });
     }
-  }
-
-  void errorHandler(error) {
-    appState.setState((s) {
-      s.socketConnected = false;
-      s.socketHasError = true;
-      s.socketError = error;
-    });
   }
 
   void doneHandler() {

@@ -22,8 +22,14 @@ class AppState {
   String toLeft = 'lf';
   String toRight = 'rg';
   String stop = 'st';
+
+  @override
+  String toString() {
+    return 'AppState{socketIp: $socketIp, socketPort: $socketPort, showIngoingMessage: $showIngoingMessage, ingoingMessages: $ingoingMessages, socketConnected: $socketConnected, socketHasError: $socketHasError, socketError: $socketError, streamUrl: $streamUrl, isRunning: $isRunning, streamHasError: $streamHasError, streamError: $streamError, forward: $forward, backward: $backward, toLeft: $toLeft, toRight: $toRight, stop: $stop}';
+  }
 }
 
 final Injected<AppState> appState = RM.inject<AppState>(
   () => AppState(),
+  debugPrintWhenNotifiedPreMessage: 'AppState',
 );
