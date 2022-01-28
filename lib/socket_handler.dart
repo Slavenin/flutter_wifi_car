@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:f_wf_car/state/app_state.dart';
+import 'package:f_wf_car/state/socket_state.dart';
 
 class SocketHandler {
   void tryConnect() {
@@ -12,12 +13,12 @@ class SocketHandler {
         cancelOnError: false,
       );
 
-      appState.setState((s) {
+      socketState.setState((s) {
         s.socket = sock;
         s.socketConnected = true;
       });
     }).catchError((e) {
-      appState.setState((s) {
+      socketState.setState((s) {
         s.socketConnected = false;
         s.socketHasError = true;
         s.socketError = e;
@@ -27,22 +28,22 @@ class SocketHandler {
 
   void dataHandler(data) {
     if (appState.state.showIngoingMessage) {
-      appState.setState((s) {
+      socketState.setState((s) {
         s.ingoingMessages.insert(0, data);
       });
     }
   }
 
   void doneHandler() {
-    appState.state.socket.destroy();
-    appState.setState((s) {
+    socketState.state.socket.destroy();
+    socketState.setState((s) {
       s.socketConnected = false;
     });
   }
 
   void sendData(String data) {
-    appState.state.socketConnected
-        ? appState.state.socket.write("$data\n")
+    socketState.state.socketConnected
+        ? socketState.state.socket.write("$data\n")
         : null;
   }
 }

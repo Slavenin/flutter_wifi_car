@@ -1,5 +1,6 @@
 import 'package:f_wf_car/socket_handler.dart';
 import 'package:f_wf_car/state/app_state.dart';
+import 'package:f_wf_car/state/stream_state.dart';
 import 'package:f_wf_car/widget/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -30,15 +31,15 @@ class MyHomePage extends HookWidget {
                       padding: const EdgeInsets.only(bottom: 50),
                       child: ElevatedButton(
                         onPressed: () {
-                          appState.setState((s) {
+                          streamState.setState((s) {
                             s.isRunning = !s.isRunning;
                           });
                         },
-                        child: OnReactive(
-                          // Will listen to counter1
-                          () => Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: (appState.state.isRunning
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: OnReactive(
+                            // Will listen to counter1
+                            () => (streamState.state.isRunning
                                 ? const Icon(Icons.visibility)
                                 : const Icon(Icons.visibility_off)),
                           ),
@@ -86,20 +87,20 @@ class MyHomePage extends HookWidget {
               ],
             ),
           ),
-          OnReactive(
-            // Will listen to counter1
-            () => !appState.state.streamHasError
-                ? Expanded(
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 15, top: 15),
-                        child: Mjpeg(
+          Expanded(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 15, top: 15),
+                child: OnReactive(
+                  // Will listen to counter1
+                  () => !streamState.state.streamHasError
+                      ? Mjpeg(
                           fit: BoxFit.fill,
-                          isLive: appState.state.isRunning,
+                          isLive: streamState.state.isRunning,
                           height: MediaQuery.of(context).size.height,
                           error: (context, error, stack) {
                             WidgetsBinding.instance!.addPostFrameCallback((_) {
-                              appState.setState((s) {
+                              streamState.setState((s) {
                                 s.streamHasError = true;
                                 s.streamError = error;
                                 s.isRunning = false;
@@ -112,21 +113,14 @@ class MyHomePage extends HookWidget {
                             );
                           },
                           stream: appState.state.streamUrl,
-                        ),
-                      ),
-                    ),
-                  )
-                : Expanded(
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 20),
-                        child: Text(
-                          appState.state.streamError.toString(),
+                        )
+                      : Text(
+                          streamState.state.streamError.toString(),
                           style: const TextStyle(color: Colors.red),
                         ),
-                      ),
-                    ),
-                  ),
+                ),
+              ),
+            ),
           )
         ],
       ),
