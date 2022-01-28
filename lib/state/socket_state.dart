@@ -8,6 +8,11 @@ class SocketState {
   bool socketConnected = false;
   bool socketHasError = false;
   dynamic socketError;
+
+  @override
+  String toString() {
+    return 'SocketState{ingoingMessages: $ingoingMessages, socketConnected: $socketConnected, socketHasError: $socketHasError, socketError: $socketError}';
+  }
 }
 
 final Injected<SocketState> socketState = RM.inject<SocketState>(

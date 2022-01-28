@@ -2,19 +2,18 @@ import 'package:f_wf_car/home_page.dart';
 import 'package:f_wf_car/socket_handler.dart';
 import 'package:flutter/material.dart';
 
+SocketHandler handler = SocketHandler();
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  SocketHandler handler = SocketHandler();
   handler.tryConnect();
 
-  runApp(MyApp(handler));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final SocketHandler handler;
-
-  const MyApp(this.handler, {Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(handler),
+      home: const MyHomePage(),
     );
   }
 }

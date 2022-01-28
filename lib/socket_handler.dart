@@ -5,7 +5,7 @@ import 'package:f_wf_car/state/socket_state.dart';
 
 class SocketHandler {
   void tryConnect() {
-    Socket.connect(appState.state.socketIp, appState.state.socketPort)
+    Socket.connect(settingsState.state.socketIp, settingsState.state.socketPort)
         .then((Socket sock) {
       sock.listen(
         dataHandler,
@@ -27,7 +27,7 @@ class SocketHandler {
   }
 
   void dataHandler(data) {
-    if (appState.state.showIngoingMessage) {
+    if (settingsState.state.showIngoingMessage) {
       socketState.setState((s) {
         s.ingoingMessages.insert(0, data);
       });
