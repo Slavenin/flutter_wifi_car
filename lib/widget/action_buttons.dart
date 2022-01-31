@@ -1,7 +1,8 @@
 import 'package:f_wf_car/main.dart';
-import 'package:f_wf_car/state/app_state.dart';
+import 'package:f_wf_car/state/settings_state.dart';
 import 'package:f_wf_car/state/stream_state.dart';
 import 'package:f_wf_car/widget/button.dart';
+import 'package:f_wf_car/widget/settings_button.dart';
 import 'package:flutter/material.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
@@ -18,6 +19,7 @@ class ActionButtons extends StatelessWidget {
       children: [
         Row(
           children: [
+            const SettingsButton(),
             Padding(
               padding: const EdgeInsets.only(bottom: 50),
               child: ElevatedButton(
@@ -43,7 +45,10 @@ class ActionButtons extends StatelessWidget {
           children: [
             MoveButton(
               onTapCancel: onTapCancel,
-              onUpdate: () => handler.sendData(settingsState.state.forward),
+              onUpdate: () {
+                print(1111);
+                handler.sendData(settingsState.state.forward);
+              },
               buttonData: const Icon(Icons.arrow_upward, color: Colors.white),
             )
           ],

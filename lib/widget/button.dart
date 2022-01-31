@@ -18,7 +18,7 @@ class MoveButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: ButtonTapHandler(
-        onUpdate: () => onUpdate,
+        onUpdate: onUpdate,
         onTapCancel: onTapCancel,
         child: Ink(
           width: 80,

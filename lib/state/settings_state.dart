@@ -22,5 +22,12 @@ class SettingsState {
 
 final Injected<SettingsState> settingsState = RM.inject<SettingsState>(
   () => SettingsState(),
-  debugPrintWhenNotifiedPreMessage: 'AppState',
+  persist: () => PersistState(
+    key: 'SettingsState',
+    toJson: (SettingsState s) => s.toJson(),
+    fromJson: (String json) => SettingsState.fromJson(json),
+    // Optionally, throttle the state persistance
+    throttleDelay: 1000,
+  ),
+  debugPrintWhenNotifiedPreMessage: 'SettingsState',
 );

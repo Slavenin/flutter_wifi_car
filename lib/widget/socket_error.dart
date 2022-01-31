@@ -1,5 +1,6 @@
 import 'package:f_wf_car/main.dart';
 import 'package:f_wf_car/state/socket_state.dart';
+import 'package:f_wf_car/widget/settings_button.dart';
 import 'package:flutter/material.dart';
 
 class SocketError extends StatelessWidget {
@@ -34,6 +35,7 @@ class SocketError extends StatelessWidget {
               child: Text("Try again"),
             ),
           ),
+          const SettingsButton(),
         ],
       ),
     );
