@@ -19,9 +19,12 @@ class ActionButtons extends StatelessWidget {
       children: [
         Row(
           children: [
-            const SettingsButton(),
+            const Padding(
+              padding: EdgeInsets.only(bottom: 30, right: 5),
+              child: SettingsButton(),
+            ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 50),
+              padding: const EdgeInsets.only(bottom: 30, left: 5),
               child: ElevatedButton(
                 onPressed: () {
                   streamState.setState((s) {
@@ -42,11 +45,21 @@ class ActionButtons extends StatelessWidget {
           ],
         ),
         Row(
+          children: const [
+            Padding(
+              padding: EdgeInsets.only(bottom: 20),
+              child: Text(
+                "Robot control",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        ),
+        Row(
           children: [
             MoveButton(
               onTapCancel: onTapCancel,
               onUpdate: () {
-                print(1111);
                 handler.sendData(settingsState.state.forward);
               },
               buttonData: const Icon(Icons.arrow_upward, color: Colors.white),

@@ -13,6 +13,7 @@ class SocketHandler {
       sock.listen(
         dataHandler,
         onDone: doneHandler,
+        onError: errorHandler,
         cancelOnError: false,
       );
 
@@ -26,6 +27,14 @@ class SocketHandler {
         s.socketHasError = true;
         s.socketError = e;
       });
+    });
+  }
+
+  void errorHandler(error) {
+    socketState.setState((s) {
+      s.socketConnected = false;
+      s.socketHasError = true;
+      s.socketError = error;
     });
   }
 

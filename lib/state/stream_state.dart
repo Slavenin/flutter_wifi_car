@@ -1,7 +1,7 @@
 import 'package:states_rebuilder/states_rebuilder.dart';
 
 class StreamState {
-  bool isRunning = false;
+  bool isRunning = true;
   bool streamHasError = false;
   dynamic streamError;
 

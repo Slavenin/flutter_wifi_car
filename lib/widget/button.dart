@@ -21,11 +21,11 @@ class MoveButton extends StatelessWidget {
         onUpdate: onUpdate,
         onTapCancel: onTapCancel,
         child: Ink(
-          width: 80,
-          height: 60,
-          decoration: const BoxDecoration(
-            color: Colors.blue,
-            borderRadius: BorderRadius.all(Radius.circular(5)),
+          width: 70,
+          height: 50,
+          decoration: BoxDecoration(
+            color: Colors.blue.withOpacity(0.5),
+            borderRadius: const BorderRadius.all(Radius.circular(5)),
           ),
           child: Center(
             child: buttonData,

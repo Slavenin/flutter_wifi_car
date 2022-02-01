@@ -14,49 +14,64 @@ class MyHomePage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    double sHeight = MediaQuery.of(context).size.height;
+    double sWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: OnReactive(
-        // Will listen to counter1
         () => Row(
           children: socketState.state.socketHasError
               ? <Widget>[const SocketError()]
               : (socketState.state.socketConnected
                   ? <Widget>[
-                      const Padding(
-                        padding: EdgeInsets.only(left: 10),
-                        child: ActionButtons(),
-                      ),
-                      Expanded(
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 15, top: 15),
-                            child: OnReactive(
-                              // Will listen to counter1
-                              () => !streamState.state.streamHasError
-                                  ? Mjpeg(
-                                      fit: BoxFit.fill,
-                                      isLive: streamState.state.isRunning,
-                                      height:
-                                          MediaQuery.of(context).size.height,
-                                      error: (context, error, stack) {
-                                        WidgetsBinding.instance!
-                                            .addPostFrameCallback((_) {
-                                          streamState.setState((s) {
-                                            s.streamHasError = true;
-                                            s.streamError = error;
-                                            s.isRunning = false;
-                                          });
-                                        });
+                      SizedBox(
+                        width: sWidth,
+                        height: sHeight,
+                        child: Stack(
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(bottom: 15, top: 15),
+                              child: OnReactive(
+                                () => !streamState.state.streamHasError
+                                    ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Mjpeg(
+                                            fit: BoxFit.fill,
+                                            isLive: streamState.state.isRunning,
+                                            height: sHeight,
+                                            error: (context, error, stack) {
+                                              WidgetsBinding.instance!
+                                                  .addPostFrameCallback((_) {
+                                                streamState.setState((s) {
+                                                  s.streamHasError = true;
+                                                  s.streamError = error;
+                                                  s.isRunning = false;
+                                                });
+                                              });
 
-                                        return const Text("");
-                                      },
-                                      stream: settingsState.state.streamUrl,
-                                    )
-                                  : const StreamError(),
+                                              return const Text("");
+                                            },
+                                            stream:
+                                                settingsState.state.streamUrl,
+                                          ),
+                                        ],
+                                      )
+                                    : const StreamError(),
+                              ),
                             ),
-                          ),
+                            Row(
+                              children: const [
+                                Padding(
+                                  padding: EdgeInsets.only(left: 10),
+                                  child: ActionButtons(),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                      ),
+                      )
                     ]
                   : [
                       const Expanded(

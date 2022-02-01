@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:states_rebuilder/states_rebuilder.dart';
 
 class SettingsState {
+  SettingsState();
+
   String socketIp = '192.168.1.1';
   int socketPort = 2001;
 
@@ -14,6 +18,31 @@ class SettingsState {
   String toRight = 'rg';
   String stop = 'st';
 
+  String toJson() {
+    return json.encode({
+      'socketIp': socketIp,
+      'socketPort': socketPort,
+      'streamUrl': streamUrl,
+      'showIngoingMessage': showIngoingMessage,
+      'forward': forward,
+      'backward': backward,
+      'toLeft': toLeft,
+      'toRight': toRight,
+      'stop': stop,
+    });
+  }
+
+  SettingsState.fromJson(Map json)
+      : socketIp = json['socketIp'],
+        socketPort = json['socketPort'],
+        streamUrl = json['streamUrl'],
+        showIngoingMessage = json['showIngoingMessage'],
+        forward = json['forward'],
+        backward = json['backward'],
+        toLeft = json['toLeft'],
+        toRight = json['toRight'],
+        stop = json['stop'];
+
   @override
   String toString() {
     return 'SettingsState{socketIp: $socketIp, socketPort: $socketPort, streamUrl: $streamUrl, showIngoingMessage: $showIngoingMessage, forward: $forward, backward: $backward, toLeft: $toLeft, toRight: $toRight, stop: $stop}';
@@ -25,7 +54,7 @@ final Injected<SettingsState> settingsState = RM.inject<SettingsState>(
   persist: () => PersistState(
     key: 'SettingsState',
     toJson: (SettingsState s) => s.toJson(),
-    fromJson: (String json) => SettingsState.fromJson(json),
+    fromJson: (String data) => SettingsState.fromJson(json.decode(data)),
     // Optionally, throttle the state persistance
     throttleDelay: 1000,
   ),
