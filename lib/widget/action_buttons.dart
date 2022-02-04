@@ -7,7 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 
 class ActionButtons extends StatelessWidget {
-  const ActionButtons({Key? key}) : super(key: key);
+  String forward;
+  String toLeft;
+  String toRight;
+  String backward;
+
+  bool showSettings = true;
+
+  ActionButtons(this.forward, this.toLeft, this.toRight, this.backward,
+      {Key? key, this.showSettings = true})
+      : super(key: key);
 
   void onTapCancel() => handler.sendData(settingsState.state.stop);
 
@@ -17,33 +26,40 @@ class ActionButtons extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Row(
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(bottom: 30, right: 5),
-              child: SettingsButton(),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 30, left: 5),
-              child: ElevatedButton(
-                onPressed: () {
-                  streamState.setState((s) {
-                    s.isRunning = !s.isRunning;
-                  });
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: OnReactive(
-                    // Will listen to counter1
-                    () => (streamState.state.isRunning
-                        ? const Icon(Icons.visibility)
-                        : const Icon(Icons.visibility_off)),
+        showSettings
+            ? Row(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 30, right: 5),
+                    child: SettingsButton(),
                   ),
-                ),
-              ),
-            ),
-          ],
-        ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 30, left: 5),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                          Colors.blue.withOpacity(0.5),
+                        ),
+                      ),
+                      onPressed: () {
+                        streamState.setState((s) {
+                          s.isRunning = !s.isRunning;
+                        });
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: OnReactive(
+                          // Will listen to counter1
+                          () => (streamState.state.isRunning
+                              ? const Icon(Icons.visibility)
+                              : const Icon(Icons.visibility_off)),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            : Container(),
         Row(
           children: const [
             Padding(
@@ -60,7 +76,7 @@ class ActionButtons extends StatelessWidget {
             MoveButton(
               onTapCancel: onTapCancel,
               onUpdate: () {
-                handler.sendData(settingsState.state.forward);
+                handler.sendData(forward);
               },
               buttonData: const Icon(Icons.arrow_upward, color: Colors.white),
             )
@@ -72,7 +88,7 @@ class ActionButtons extends StatelessWidget {
               padding: const EdgeInsets.only(right: 10),
               child: MoveButton(
                 onTapCancel: onTapCancel,
-                onUpdate: () => handler.sendData(settingsState.state.toLeft),
+                onUpdate: () => handler.sendData(toLeft),
                 buttonData: const Icon(Icons.arrow_back, color: Colors.white),
               ),
             ),
@@ -80,7 +96,7 @@ class ActionButtons extends StatelessWidget {
               padding: const EdgeInsets.only(left: 10),
               child: MoveButton(
                 onTapCancel: onTapCancel,
-                onUpdate: () => handler.sendData(settingsState.state.toRight),
+                onUpdate: () => handler.sendData(toRight),
                 buttonData:
                     const Icon(Icons.arrow_forward, color: Colors.white),
               ),
@@ -91,7 +107,7 @@ class ActionButtons extends StatelessWidget {
           children: [
             MoveButton(
               onTapCancel: onTapCancel,
-              onUpdate: () => handler.sendData(settingsState.state.backward),
+              onUpdate: () => handler.sendData(backward),
               buttonData: const Icon(Icons.arrow_downward, color: Colors.white),
             ),
           ],

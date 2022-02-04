@@ -7,6 +7,11 @@ class SettingsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(
+          Colors.blue.withOpacity(0.5),
+        ),
+      ),
       onPressed: () {
         Navigator.push(
           context,

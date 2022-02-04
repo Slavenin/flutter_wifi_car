@@ -14,12 +14,14 @@ class SocketHandler {
         dataHandler,
         onDone: doneHandler,
         onError: errorHandler,
-        cancelOnError: false,
+        cancelOnError: true,
       );
 
       socketState.setState((s) {
         s.socket = sock;
         s.socketConnected = true;
+        s.socketHasError = false;
+        s.socketError = null;
       });
     }).catchError((e) {
       socketState.setState((s) {
@@ -41,7 +43,7 @@ class SocketHandler {
   void dataHandler(data) {
     if (settingsState.state.showIngoingMessage) {
       socketState.setState((s) {
-        s.ingoingMessages.insert(0, data);
+        s.ingoingMessages.insert(0, String.fromCharCodes(data));
       });
     }
   }

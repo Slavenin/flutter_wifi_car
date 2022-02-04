@@ -7,12 +7,13 @@ class SettingsForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //move
     final forwardText = RM.injectTextEditing(
         text: settingsState.state.forward,
         onTextEditing: (text) {
           if (text.isValid) {
             settingsState.setState((s) {
-              s.forward = text.value;
+              s.forward = text.controller.value.text;
             });
           }
         });
@@ -21,7 +22,7 @@ class SettingsForm extends StatelessWidget {
         onTextEditing: (text) {
           if (text.isValid) {
             settingsState.setState((s) {
-              s.backward = text.value;
+              s.backward = text.controller.value.text;
             });
           }
         });
@@ -30,7 +31,7 @@ class SettingsForm extends StatelessWidget {
         onTextEditing: (text) {
           if (text.isValid) {
             settingsState.setState((s) {
-              s.toLeft = text.value;
+              s.toLeft = text.controller.value.text;
             });
           }
         });
@@ -39,11 +40,48 @@ class SettingsForm extends StatelessWidget {
         onTextEditing: (text) {
           if (text.isValid) {
             settingsState.setState((s) {
-              s.toRight = text.value;
+              s.toRight = text.controller.value.text;
             });
           }
         });
-
+    //camera
+    final cameraUp = RM.injectTextEditing(
+        text: settingsState.state.cameraUp,
+        onTextEditing: (text) {
+          if (text.isValid) {
+            settingsState.setState((s) {
+              s.cameraUp = text.controller.value.text;
+            });
+          }
+        });
+    final cameraDown = RM.injectTextEditing(
+        text: settingsState.state.cameraDown,
+        onTextEditing: (text) {
+          if (text.isValid) {
+            settingsState.setState((s) {
+              s.cameraDown = text.controller.value.text;
+            });
+          }
+        });
+    final cameraLeft = RM.injectTextEditing(
+        text: settingsState.state.cameraLeft,
+        onTextEditing: (text) {
+          if (text.isValid) {
+            settingsState.setState((s) {
+              s.cameraLeft = text.controller.value.text;
+            });
+          }
+        });
+    final cameraRight = RM.injectTextEditing(
+        text: settingsState.state.cameraRight,
+        onTextEditing: (text) {
+          if (text.isValid) {
+            settingsState.setState((s) {
+              s.cameraRight = text.controller.value.text;
+            });
+          }
+        });
+    //sockets
     final socketIp = RM.injectTextEditing(
         text: settingsState.state.socketIp,
         validators: [
@@ -67,7 +105,7 @@ class SettingsForm extends StatelessWidget {
         onTextEditing: (socketIp) {
           if (socketIp.isValid) {
             settingsState.setState((s) {
-              s.socketIp = socketIp.value;
+              s.socketIp = socketIp.controller.value.text;
             });
           }
         });
@@ -87,10 +125,11 @@ class SettingsForm extends StatelessWidget {
           }
         ],
         validateOnTyping: true,
+        validateOnLoseFocus: true,
         onTextEditing: (socketPort) {
           if (socketPort.isValid) {
             settingsState.setState((s) {
-              s.socketPort = int.parse(socketPort.value);
+              s.socketPort = int.parse(socketPort.controller.value.text);
             });
           }
         });
@@ -118,7 +157,7 @@ class SettingsForm extends StatelessWidget {
         onTextEditing: (streamUrl) {
           if (streamUrl.isValid) {
             settingsState.setState((s) {
-              s.streamUrl = streamUrl.value;
+              s.streamUrl = streamUrl.controller.value.text;
             });
           }
         });
@@ -285,6 +324,87 @@ class SettingsForm extends StatelessWidget {
                   ),
                   const SizedBox(
                     height: 15,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: const [
+                      Text(
+                        "Values transmitted for camera control",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  //
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 5),
+                          child: TextField(
+                            controller: cameraUp.controller,
+                            focusNode: cameraUp.focusNode,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Camera up text',
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: TextField(
+                            controller: cameraDown.controller,
+                            focusNode: cameraDown.focusNode,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Camera down',
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 5),
+                          child: TextField(
+                            controller: cameraLeft.controller,
+                            focusNode: cameraLeft.focusNode,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Camera to left',
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: TextField(
+                            controller: cameraRight.controller,
+                            focusNode: cameraRight.focusNode,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Camera to right',
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
                   ),
                 ],
               ),

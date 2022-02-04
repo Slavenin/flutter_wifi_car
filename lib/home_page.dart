@@ -28,6 +28,21 @@ class MyHomePage extends HookWidget {
                         height: sHeight,
                         child: Stack(
                           children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: ActionButtons(
+                                    settingsState.state.cameraUp,
+                                    settingsState.state.cameraLeft,
+                                    settingsState.state.cameraRight,
+                                    settingsState.state.cameraDown,
+                                    showSettings: false,
+                                  ),
+                                ),
+                              ],
+                            ),
                             Padding(
                               padding:
                                   const EdgeInsets.only(bottom: 15, top: 15),
@@ -62,10 +77,15 @@ class MyHomePage extends HookWidget {
                               ),
                             ),
                             Row(
-                              children: const [
+                              children: [
                                 Padding(
-                                  padding: EdgeInsets.only(left: 10),
-                                  child: ActionButtons(),
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: ActionButtons(
+                                    settingsState.state.forward,
+                                    settingsState.state.toLeft,
+                                    settingsState.state.toRight,
+                                    settingsState.state.backward,
+                                  ),
                                 ),
                               ],
                             ),
