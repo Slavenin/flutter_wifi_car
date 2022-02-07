@@ -42,6 +42,7 @@ void loop()
 
 void doCommand(String data)
 {
+  int degree = 0;
   if (data == "fw") {
     run();
   } else if (data == "bw") {
@@ -53,14 +54,17 @@ void doCommand(String data)
   } else if (data == "st") {
     brake();
   }
-  else if (data == "stl") {
-    servoMove(ServoPinTurn, 5);
-  } else if (data == "str") {
-    servoMove(ServoPinTurn, -5);
-  } else if (data == "stu") {
-    servoMove(ServoPinUpDown, 5);
-  } else if (data == "std") {
-    servoMove(ServoPinUpDown, -5);
+  else if (data.indexOf("cud") != -1)
+  {
+    data.replace("cud", "");
+    int degree = data.toInt();
+    servoMove(ServoPinUpDown, degree);
+  }
+  else if (data.indexOf("ct") != -1)
+  {
+    data.replace("ct", "");
+    int degree = data.toInt();
+    servoMove(ServoPinTurn, degree);
   }
 }
 
@@ -68,25 +72,22 @@ void doCommand(String data)
 //поэтому управляем мотором вручную
 void servoMove(int pin, int degreesCount)
 {
-  int newAngle;
   int maxAngle;
   if (pin == ServoPinTurn ) {
-    newAngle = ServoTurnPosition + degreesCount;
-    maxAngle = 270;
+    maxAngle = 360;
   } else {
-    newAngle = ServoUpDownPosition + degreesCount;
-    maxAngle = 180;
+    maxAngle = 100;
   }
 
-  if (newAngle < 0 || newAngle > maxAngle) {
+  if (degreesCount < 0 || degreesCount > maxAngle) {
     return;
   }
 
-  movePulse(newAngle, pin);
+  movePulse(degreesCount, pin);
   if (pin == ServoPinTurn ) {
-    ServoTurnPosition = newAngle;
+    ServoTurnPosition = degreesCount;
   } else {
-    ServoUpDownPosition = newAngle;
+    ServoUpDownPosition = degreesCount;
   }
 }
 
@@ -96,7 +97,7 @@ void movePulse(int x, int pin) {
     int fr = 18100;
   }
 
-  int del = (7 * x) + 400;
+  int del = (5 * x) + 400;
   for (int pulseCounter = 0; pulseCounter <= 50; pulseCounter++) {
     digitalWrite(pin, HIGH);
     delayMicroseconds(del);    //position
