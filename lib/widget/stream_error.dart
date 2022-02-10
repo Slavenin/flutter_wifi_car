@@ -6,30 +6,38 @@ class StreamError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 50, right: 50, bottom: 30),
-          child: Text(
-            streamState.state.streamError.toString(),
-            textAlign: TextAlign.center,
-            style: const TextStyle(color: Colors.red),
-          ),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            streamState.setState((s) {
-              s.streamHasError = false;
-              s.streamError = null;
-              s.isRunning = false;
-            });
-          },
-          child: const Padding(
-            padding: EdgeInsets.all(10),
-            child: Text("Try again"),
-          ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 500,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 50, right: 50, bottom: 30),
+                child: Text(
+                  streamState.state.streamError.toString(),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(color: Colors.red),
+                ),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                streamState.setState((s) {
+                  s.streamHasError = false;
+                  s.streamError = null;
+                  s.isRunning = false;
+                });
+              },
+              child: const Padding(
+                padding: EdgeInsets.all(10),
+                child: Text("Try again"),
+              ),
+            ),
+          ],
         ),
       ],
     );
