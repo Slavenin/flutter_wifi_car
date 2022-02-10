@@ -84,6 +84,14 @@ class MyHomePage extends HookWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
+                                        const Center(
+                                          child: Text(
+                                            "Camera control",
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
                                         RotatedBox(
                                           quarterTurns: 1,
                                           child: OnReactive(

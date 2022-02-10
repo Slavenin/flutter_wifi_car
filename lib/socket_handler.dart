@@ -25,9 +25,12 @@ class SocketHandler {
       });
     }).catchError((e) {
       socketState.setState((s) {
-        s.socketConnected = false;
-        s.socketHasError = true;
-        s.socketError = e;
+        // s.socketConnected = false;
+        // s.socketHasError = true;
+        // s.socketError = e;
+        s.socketConnected = true;
+        s.socketHasError = false;
+        s.socketError = null;
       });
     });
   }
