@@ -17,8 +17,8 @@ class MyHomePage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _sliderUD = 5.0.inj();
-    final _sliderT = 180.0.inj();
+    final _sliderUD = 0.0.inj();
+    final _sliderT = 90.0.inj();
 
     Timer? _debounceUD;
     Timer? _debounceT;
@@ -100,9 +100,9 @@ class MyHomePage extends HookWidget {
                                               activeColor: Colors.blue.shade300,
                                               inactiveColor:
                                                   Colors.blue.shade300,
-                                              max: 100,
-                                              min: 2,
-                                              divisions: 10,
+                                              max: 180,
+                                              min: 0,
+                                              divisions: 9,
                                               onChanged: (double newValue) {
                                                 _sliderUD.state = newValue;
 
@@ -125,12 +125,12 @@ class MyHomePage extends HookWidget {
                                           () {
                                             return Slider(
                                               value: _sliderT.state,
-                                              max: 360,
-                                              min: 5,
+                                              max: 180,
+                                              min: 0,
                                               activeColor: Colors.blue.shade300,
                                               inactiveColor:
                                                   Colors.blue.shade300,
-                                              divisions: 10,
+                                              divisions: 9,
                                               label: _sliderT.state
                                                   .round()
                                                   .toString(),

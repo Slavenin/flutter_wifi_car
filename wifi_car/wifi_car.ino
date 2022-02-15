@@ -6,7 +6,7 @@ int Right_motor = 11;
 String in_data = "0";
 
 int ServoPinTurn = 12;
-int ServoTurnPosition = 135;
+int ServoTurnPosition = 90;
 
 int ServoPinUpDown = 2;
 int ServoUpDownPosition = 0;
@@ -24,8 +24,8 @@ void setup()
   pinMode(Right_motor_pwm, OUTPUT); // PIN 10 (PWM)
   pinMode(Right_motor, OUTPUT); // PIN 11 (PWM)
 
-  movePulse(ServoPinTurn, ServoTurnPosition);
-  movePulse(ServoPinUpDown, ServoUpDownPosition);
+  servoMove(ServoPinTurn, ServoTurnPosition);
+  servoMove(ServoPinUpDown, ServoUpDownPosition);
 }
 
 int a = 1;
@@ -68,22 +68,21 @@ void doCommand(String data)
   }
 }
 
-//servo.h лочик порты управления колёсами для своих нужд
+//servo.h лочит пины управления колёсами для своих нужд
 //поэтому управляем мотором вручную
 void servoMove(int pin, int degreesCount)
 {
-  int maxAngle;
-  if (pin == ServoPinTurn ) {
-    maxAngle = 360;
-  } else {
-    maxAngle = 100;
-  }
+  int maxAngle = 180;
 
   if (degreesCount < 0 || degreesCount > maxAngle) {
     return;
   }
 
-  movePulse(degreesCount, pin);
+  for (int i = 0; i <= 50; i++)
+  {
+    servoPulse(servoPin, degreesCount);
+  }
+
   if (pin == ServoPinTurn ) {
     ServoTurnPosition = degreesCount;
   } else {
@@ -91,19 +90,15 @@ void servoMove(int pin, int degreesCount)
   }
 }
 
-void movePulse(int x, int pin) {
-  int fr = 18900;
-  if (x > 90) {
-    int fr = 18100;
-  }
-
-  int del = (5 * x) + 400;
-  for (int pulseCounter = 0; pulseCounter <= 50; pulseCounter++) {
-    digitalWrite(pin, HIGH);
-    delayMicroseconds(del);    //position
-    digitalWrite(pin, LOW);
-    delayMicroseconds(fr);   //balance of 20000 cycle
-  }
+//http://developer.alexanderklimov.ru/arduino/servo.php
+void servoPulse(int pin, int angle)
+{
+	// convert angle to 500-2480 pulse width
+	int pulseWidth = (angle * 11) + 500;
+	digitalWrite(pin, HIGH); // set the level of servo pin as high
+	delayMicroseconds(pulseWidth); // delay microsecond of pulse width
+	digitalWrite(pin, LOW); // set the level of servo pin as low
+	delay(20 - pulseWidth / 1000);
 }
 
 void run()
