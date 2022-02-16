@@ -8,7 +8,7 @@ String in_data = "0";
 int ServoPinTurn = 12;
 int ServoTurnPosition = 90;
 
-int ServoPinUpDown = 2;
+int ServoPinUpDown = 7;
 int ServoUpDownPosition = 0;
 
 void setup()
@@ -42,6 +42,7 @@ void loop()
 
 void doCommand(String data)
 {
+   Serial.println(data);
   int degree = 0;
   if (data == "fw") {
     run();
@@ -80,7 +81,7 @@ void servoMove(int pin, int degreesCount)
 
   for (int i = 0; i <= 50; i++)
   {
-    servoPulse(servoPin, degreesCount);
+    servoPulse(pin, degreesCount);
   }
 
   if (pin == ServoPinTurn ) {

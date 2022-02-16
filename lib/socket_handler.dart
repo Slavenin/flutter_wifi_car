@@ -25,12 +25,9 @@ class SocketHandler {
       });
     }).catchError((e) {
       socketState.setState((s) {
-        // s.socketConnected = false;
-        // s.socketHasError = true;
-        // s.socketError = e;
-        s.socketConnected = true;
-        s.socketHasError = false;
-        s.socketError = null;
+        s.socketConnected = false;
+        s.socketHasError = true;
+        s.socketError = e;
       });
     });
   }
@@ -59,6 +56,8 @@ class SocketHandler {
   }
 
   void sendData(String data) {
+    print(socketState.state.socketConnected);
+    print(data);
     socketState.state.socketConnected
         ? socketState.state.socket.write("$data\n")
         : null;

@@ -100,7 +100,7 @@ class MyHomePage extends HookWidget {
                                               activeColor: Colors.blue.shade300,
                                               inactiveColor:
                                                   Colors.blue.shade300,
-                                              max: 180,
+                                              max: 100,
                                               min: 0,
                                               divisions: 9,
                                               onChanged: (double newValue) {
@@ -130,7 +130,7 @@ class MyHomePage extends HookWidget {
                                               activeColor: Colors.blue.shade300,
                                               inactiveColor:
                                                   Colors.blue.shade300,
-                                              divisions: 9,
+                                              divisions: 10,
                                               label: _sliderT.state
                                                   .round()
                                                   .toString(),
