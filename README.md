@@ -6,3 +6,5 @@ Application for controlling a robot based on arduino uno. It supports wheel cont
 
 ![](assets/screenshots/photo_2022-02-14_15-14-20.jpg?raw=true)
 ![](assets/screenshots/photo_2022-02-14_15-14-32.jpg?raw=true)
+![](assets/screenshots/photo_2022-02-18_09-28-54.jpg?raw=true)
+![](assets/screenshots/photo_2022-02-18_09-28-47.jpg?raw=true)

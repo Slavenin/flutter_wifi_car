@@ -103,6 +103,9 @@ class MyHomePage extends HookWidget {
                                               max: 100,
                                               min: 0,
                                               divisions: 9,
+                                              label: _sliderT.state
+                                                  .round()
+                                                  .toString(),
                                               onChanged: (double newValue) {
                                                 _sliderUD.state = newValue;
 
@@ -114,7 +117,7 @@ class MyHomePage extends HookWidget {
                                                     const Duration(
                                                         milliseconds: 200), () {
                                                   handler.sendData(
-                                                      'cud${newValue.toInt()}');
+                                                      '${settingsState.state.cameraUD}${newValue.toInt()}');
                                                   // do something with query
                                                 });
                                               },
@@ -145,7 +148,7 @@ class MyHomePage extends HookWidget {
                                                     const Duration(
                                                         milliseconds: 200), () {
                                                   handler.sendData(
-                                                      'ct${newValue.toInt()}');
+                                                      '${settingsState.state.cameraLR}${newValue.toInt()}');
                                                   // do something with query
                                                 });
                                               },

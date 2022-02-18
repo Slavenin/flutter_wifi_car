@@ -18,10 +18,8 @@ class SettingsState {
   String toRight = 'rg';
   String stop = 'st';
 
-  String cameraUp = 'stu';
-  String cameraDown = 'std';
-  String cameraLeft = 'stl';
-  String cameraRight = 'str';
+  String cameraUD = 'cud';
+  String cameraLR = 'ct';
 
   String toJson() {
     return json.encode({
@@ -34,10 +32,8 @@ class SettingsState {
       'toLeft': toLeft,
       'toRight': toRight,
       'stop': stop,
-      'cameraUp': cameraUp,
-      'cameraDown': cameraDown,
-      'cameraLeft': cameraLeft,
-      'cameraRight': cameraRight,
+      'cameraUD': cameraUD,
+      'cameraLR': cameraLR,
     });
   }
 
@@ -51,14 +47,12 @@ class SettingsState {
         toLeft = json['toLeft'],
         toRight = json['toRight'],
         stop = json['stop'],
-        cameraUp = json['cameraUp'] ?? "stu",
-        cameraDown = json['cameraDown'] ?? "std",
-        cameraLeft = json['cameraLeft'] ?? 'stl',
-        cameraRight = json['cameraRight'] ?? 'str';
+        cameraUD = json['cameraUD'] ?? "cud",
+        cameraLR = json['cameraLR'] ?? 'ct';
 
   @override
   String toString() {
-    return 'SettingsState{socketIp: $socketIp, socketPort: $socketPort, streamUrl: $streamUrl, showIngoingMessage: $showIngoingMessage, forward: $forward, backward: $backward, toLeft: $toLeft, toRight: $toRight, stop: $stop, cameraUp: $cameraUp, cameraDown: $cameraDown, cameraLeft: $cameraLeft, cameraRight: $cameraRight}';
+    return 'SettingsState{socketIp: $socketIp, socketPort: $socketPort, streamUrl: $streamUrl, showIngoingMessage: $showIngoingMessage, forward: $forward, backward: $backward, toLeft: $toLeft, toRight: $toRight, stop: $stop, cameraUD: $cameraUD, cameraLR: $cameraLR}';
   }
 }
 

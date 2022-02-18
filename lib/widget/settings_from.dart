@@ -45,42 +45,26 @@ class SettingsForm extends StatelessWidget {
           }
         });
     //camera
-    final cameraUp = RM.injectTextEditing(
-        text: settingsState.state.cameraUp,
+    final cameraUD = RM.injectTextEditing(
+        text: settingsState.state.cameraUD,
         onTextEditing: (text) {
           if (text.isValid) {
             settingsState.setState((s) {
-              s.cameraUp = text.controller.value.text;
+              s.cameraUD = text.controller.value.text;
             });
           }
         });
-    final cameraDown = RM.injectTextEditing(
-        text: settingsState.state.cameraDown,
+
+    final cameraLR = RM.injectTextEditing(
+        text: settingsState.state.cameraLR,
         onTextEditing: (text) {
           if (text.isValid) {
             settingsState.setState((s) {
-              s.cameraDown = text.controller.value.text;
+              s.cameraLR = text.controller.value.text;
             });
           }
         });
-    final cameraLeft = RM.injectTextEditing(
-        text: settingsState.state.cameraLeft,
-        onTextEditing: (text) {
-          if (text.isValid) {
-            settingsState.setState((s) {
-              s.cameraLeft = text.controller.value.text;
-            });
-          }
-        });
-    final cameraRight = RM.injectTextEditing(
-        text: settingsState.state.cameraRight,
-        onTextEditing: (text) {
-          if (text.isValid) {
-            settingsState.setState((s) {
-              s.cameraRight = text.controller.value.text;
-            });
-          }
-        });
+
     //sockets
     final socketIp = RM.injectTextEditing(
         text: settingsState.state.socketIp,
@@ -164,7 +148,7 @@ class SettingsForm extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Second Route'),
+        title: const Text('Settings'),
       ),
       body: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints viewportConstraints) {
@@ -345,58 +329,24 @@ class SettingsForm extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.only(right: 5),
                           child: TextField(
-                            controller: cameraUp.controller,
-                            focusNode: cameraUp.focusNode,
+                            controller: cameraUD.controller,
+                            focusNode: cameraUD.focusNode,
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
-                              labelText: 'Camera up text',
+                              labelText: 'Camera up/down text',
                             ),
                           ),
                         ),
                       ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 5),
-                          child: TextField(
-                            controller: cameraDown.controller,
-                            focusNode: cameraDown.focusNode,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'Camera down',
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.only(right: 5),
                           child: TextField(
-                            controller: cameraLeft.controller,
-                            focusNode: cameraLeft.focusNode,
+                            controller: cameraLR.controller,
+                            focusNode: cameraLR.focusNode,
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
-                              labelText: 'Camera to left',
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 5),
-                          child: TextField(
-                            controller: cameraRight.controller,
-                            focusNode: cameraRight.focusNode,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'Camera to right',
+                              labelText: 'Camera to left/right text',
                             ),
                           ),
                         ),
