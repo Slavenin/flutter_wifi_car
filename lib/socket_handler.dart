@@ -56,8 +56,6 @@ class SocketHandler {
   }
 
   void sendData(String data) {
-    print(socketState.state.socketConnected);
-    print(data);
     socketState.state.socketConnected
         ? socketState.state.socket.write("$data\n")
         : null;

@@ -94,7 +94,7 @@ class MyHomePage extends HookWidget {
                                           ),
                                         ),
                                         RotatedBox(
-                                          quarterTurns: 1,
+                                          quarterTurns: 3,
                                           child: OnReactive(
                                             () => Slider(
                                               value: _sliderUD.state,
