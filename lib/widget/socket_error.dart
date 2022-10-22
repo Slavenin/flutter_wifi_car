@@ -1,7 +1,8 @@
-import 'package:f_wf_car/main.dart';
-import 'package:f_wf_car/state/socket_state.dart';
-import 'package:f_wf_car/widget/settings_button.dart';
 import 'package:flutter/material.dart';
+
+import '/main.dart';
+import '/state/socket_state.dart';
+import '/widget/settings_button.dart';
 
 class SocketError extends StatelessWidget {
   const SocketError({Key? key}) : super(key: key);

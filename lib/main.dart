@@ -1,9 +1,10 @@
-import 'package:f_wf_car/home_page.dart';
-import 'package:f_wf_car/socket_handler.dart';
-import 'package:f_wf_car/state/hive_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
+
+import '/home_page.dart';
+import '/socket_handler.dart';
+import '/state/hive_storage.dart';
 
 SocketHandler handler = SocketHandler();
 

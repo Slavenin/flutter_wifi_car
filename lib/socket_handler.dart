@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:f_wf_car/state/settings_state.dart';
-import 'package:f_wf_car/state/socket_state.dart';
+import '/state/settings_state.dart';
+import '/state/socket_state.dart';
 
 class SocketHandler {
   void tryConnect() {

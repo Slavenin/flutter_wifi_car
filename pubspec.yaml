@@ -31,6 +31,7 @@ dependencies:
   hive: ^2.0.5
   hive_flutter: ^1.1.0
   states_rebuilder: ^5.2.0
+  network_info_plus: ^2.3.2
   flutter:
     sdk: flutter
 

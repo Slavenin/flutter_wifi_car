@@ -1,5 +1,6 @@
-import 'package:f_wf_car/widget/button_tap_handler.dart';
 import 'package:flutter/material.dart';
+
+import '/widget/button_tap_handler.dart';
 
 class MoveButton extends StatelessWidget {
   final VoidCallback onUpdate;

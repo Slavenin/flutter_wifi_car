@@ -1,6 +1,7 @@
-import 'package:f_wf_car/state/settings_state.dart';
 import 'package:flutter/material.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
+
+import '/state/settings_state.dart';
 
 class SettingsForm extends StatelessWidget {
   const SettingsForm({Key? key}) : super(key: key);

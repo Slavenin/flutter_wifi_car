@@ -1,10 +1,11 @@
-import 'package:f_wf_car/main.dart';
-import 'package:f_wf_car/state/settings_state.dart';
-import 'package:f_wf_car/state/stream_state.dart';
-import 'package:f_wf_car/widget/button.dart';
-import 'package:f_wf_car/widget/settings_button.dart';
 import 'package:flutter/material.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
+
+import '/main.dart';
+import '/state/settings_state.dart';
+import '/state/stream_state.dart';
+import '/widget/button.dart';
+import '/widget/settings_button.dart';
 
 class ActionButtons extends StatelessWidget {
   String forward;

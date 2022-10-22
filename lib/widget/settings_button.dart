@@ -1,5 +1,6 @@
-import 'package:f_wf_car/widget/settings_from.dart';
 import 'package:flutter/material.dart';
+
+import '/widget/settings_form.dart';
 
 class SettingsButton extends StatelessWidget {
   const SettingsButton({Key? key}) : super(key: key);

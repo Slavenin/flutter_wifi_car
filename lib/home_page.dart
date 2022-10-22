@@ -1,16 +1,17 @@
 import 'dart:async';
 
-import 'package:f_wf_car/main.dart';
-import 'package:f_wf_car/state/settings_state.dart';
-import 'package:f_wf_car/state/socket_state.dart';
-import 'package:f_wf_car/state/stream_state.dart';
-import 'package:f_wf_car/widget/action_buttons.dart';
-import 'package:f_wf_car/widget/socket_error.dart';
-import 'package:f_wf_car/widget/stream_error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_mjpeg/flutter_mjpeg.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
+
+import '/main.dart';
+import '/state/settings_state.dart';
+import '/state/socket_state.dart';
+import '/state/stream_state.dart';
+import '/widget/action_buttons.dart';
+import '/widget/socket_error.dart';
+import '/widget/stream_error.dart';
 
 class MyHomePage extends HookWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -100,10 +101,10 @@ class MyHomePage extends HookWidget {
                                               activeColor: Colors.blue.shade300,
                                               inactiveColor:
                                                   Colors.blue.shade300,
-                                              max: 100,
+                                              max: 110,
                                               min: 0,
                                               divisions: 9,
-                                              label: _sliderT.state
+                                              label: _sliderUD.state
                                                   .round()
                                                   .toString(),
                                               onChanged: (double newValue) {

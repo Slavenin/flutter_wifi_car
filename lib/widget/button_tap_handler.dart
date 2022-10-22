@@ -20,7 +20,7 @@ class ButtonTapHandler extends StatefulWidget {
   const ButtonTapHandler(
       {Key? key,
       required this.onUpdate,
-      this.minDelay = 80,
+      this.minDelay = 150,
       this.initialDelay = 300,
       this.delaySteps = 5,
       required this.child,
